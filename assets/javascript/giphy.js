@@ -57,12 +57,14 @@ $( document ).ready(function() {
           for (var i=0; i<results.length; i++){
   
               var gifDiv = $("<div>"); //div for the gifs to go inside
+              gifDiv.addClass("img-responsive");
               gifDiv.addClass("gifDiv");
               // pulling rating of gif
               var gifRating = $("<p>").text("Rating: " + results[i].rating);
               gifDiv.append(gifRating);
               // pulling gif
               var gifImage = $("<img>");
+              gifImage.addClass("img-responsive"); // makes responsive images
               gifImage.attr("src", results[i].images.fixed_height_small_still.url); // still image stored into src of image
               gifImage.attr("data-still",results[i].images.fixed_height_small_still.url); // still image
               gifImage.attr("data-animate",results[i].images.fixed_height_small.url); // animated image
@@ -91,4 +93,19 @@ $( document ).ready(function() {
           $(this).attr('data-state', 'still');
       }
   });
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          document.getElementById("myBtn").style.display = "block";
+      } else {
+          document.getElementById("myBtn").style.display = "none";
+      }
+  }
+  //scroll button not currently working 
+  // When the user clicks on the button, scroll to the top of the document 
+  function topFunction() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  }
   });
