@@ -1,45 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
-
-
-<head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type"text/css" href="assets/css/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
+<html>
+<head id="bottom">
+    <title>NBA Sports Figures</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link href="https://fonts.googleapis.com/css?family=Coiny|Lato" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
-    
-
-<body>
-
-  <div class="container">
-    <h1>Gif Search</h1>
-
-
-    <div id="movies-view"></div>
-
-    <form id="movie-form">
-      <label for="movie-input">Add a Movie Bro</label>
-      <input type="text" id="movie-input"><br>
-
-      <input id="add-movie" type="submit" value="Add a Movie Bro">
-    </form>
-    <div id="gifs-appear-here"></div>
-    <script type="text/javascript" src = "assets/javascript/giphy.js"></script>
+<body class="bottom">
+    <!-- Header  -->
+    <div class="jumbotron bottom">
+        <div class="container">
+            <img src="assets/images/nba-logo-on-wood.jpeg" alt="NBA" class="image">
+              <div class="middle">
+                <h1 class="text-center text coinytextwhite">NBA Stars</h1>
+              </div>
+        </div>
+    </div>
+ 
+    <!-- Buttons  -->
+    <div id="gifButtonsView" class="container">
+    </div>
+     <!-- Main Container  -->
+    <div class="container">
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <!-- Gifs  -->
+            <div id="gifsView"></div>
+        </div>
+         <!-- Action Submission Form  -->
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <form id="gif-form" role="form">
+                <h2 class="coinytextwhite"><legend class="coinytextwhite">NBA Sports Figures</legend></h2>
+                <div class="form-group">
+                    <label for="action-input" class="coinytextwhite">Search for a NBA star</label>
+                    <input type="text" id="action-input">
+                </div>
+                <input id="addGif" type="submit" value="Search for a NBA star" class="btn btn-primary">
+                <input id="removeGif" type="submit" value="Remove the last NBA star" class="btn btn-primary">
+            </form>    
+        </div>
+    </div>
+    <footer>
+        <div id="footer" class="container">
+           
+        </div>
+    </footer>
   
-</body> 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="assets/javascript/giphy.js"></script>
+    <iframe style="display: none;"width="560" height="315" src="https://www.youtube.com/embed/H0fpuRPVVYY?rel=0&autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  
+</body>
 </html>

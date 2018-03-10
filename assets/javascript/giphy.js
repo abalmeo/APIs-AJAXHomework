@@ -1,120 +1,94 @@
-
-
-
-var movies =["The Rock", "Kevin Hart"]
-
-
-function renderButtons() {
-
-    $("#movies-view").empty();
-
-    
-    for (var i = 0; i < movies.length; i++) {
-
-      
-      var a = $("<button>");
-      // Adding a class
-      a.addClass("movie");
-      // Adding a data-attribute with a value of the movie at index i
-      a.attr("data-name", movies[i]);
-      // Providing the button's text with a value of the movie at index i
-      a.text(movies[i]);
-      // Adding the button to the HTML
-      $("#movies-view").append(a);
-    }
+$( document ).ready(function() {
+  // An array of sportsFigure, new actions will be pushed into this array;
+  var sportsFigure = ["Michael Jordan", "Kobe Bryant", "Lebron James","Magic Johnson", "Larry Bird"];
+  // Creating Functions & Methods
+  // Function that displays all gif buttons
+  function displayGifButtons(){
+      $("#gifButtonsView").empty(); // erasing anything in this div id so that it doesnt duplicate the results
+      for (var i = 0; i < sportsFigure.length; i++){
+          var gifButton = $("<button>");
+          gifButton.addClass("action");
+          gifButton.addClass("btn btn-primary")
+          gifButton.attr("data-name", sportsFigure[i]);
+          gifButton.text(sportsFigure[i]);
+          $("#gifButtonsView").append(gifButton);
+      }
   }
-
-  // This function handles events where one button is clicked
-  $("#add-movie").on("click", function(event) {
-    // event.preventDefault() prevents the form from trying to submit itself.
-    // We're using a form so that the user can hit enter instead of clicking the button if they want
-    event.preventDefault();
-
-    // This line will grab the text from the input box
-    var movie = $("#movie-input").val().trim();
-    // The movie from the textbox is then added to our array
-    movies.push(movie);
-
-    // calling renderButtons which handles the processing of our movie array
-    renderButtons();
-    console.log(movies); 
-  });
-
-  // Calling the renderButtons function at least once to display the initial list of movies
-  renderButtons();
-
-
+  // Function to add a new action button
+  function addNewButton(){
+      $("#addGif").on("click", function(){
+      var action = $("#action-input").val().trim();
+      if (action == ""){
+        return false; // added so user cannot add a blank button
+      }
+      sportsFigure.push(action);
   
-
-
-
-
-  $("button").on("click", function() {
-    var person = $(this).attr("data-name");
-    // apiKey generated var apiKey = "pNfiBS9U6OAn1zOSJ5A5GJugEgmd8rJk"
-    console.log(person); 
-
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-    person + "&api_key=dc6zaTOxFJmzC&limit=10";
-
-    // Performing our AJAX GET request
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    })
-      // After the data comes back from the API
-      .then(function(response) {
-        // Storing an array of results in the results variable
-        var results = response.data;
-        console.log(response); 
-
-        // Looping over every result item
-        for (var i = 0; i < results.length; i++) {
-
-          // Only taking action if the photo has an appropriate rating
-          if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
-            // Creating a div with the class "item"
-            var gifDiv = $("<div class='item'>");
-
-            // Storing the result item's rating
-            var rating = results[i].rating;
-
-            // Creating a paragraph tag with the result item's rating
-            var p = $("<p>").text("Rating: " + rating);
-
-            // Creating an image tag
-            var personImage = $("<img>");
-
-            // Giving the image tag an src attribute of a proprty pulled off the
-            // result item
-            personImage.attr("src", results[i].images.fixed_height.url);
-
-            // Appending the paragraph and personImage we created to the "gifDiv" div we created
-            gifDiv.append(p);
-            gifDiv.append(personImage);
-
-            // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
-            $("#gifs-appear-here").prepend(gifDiv);
-            
-          }
-        }
-        
+      displayGifButtons();
+      return false;
       });
-
+  }
+  // Function to remove last action button
+      // Doesnt work properly yet removes all of the added buttons
+      // rather than just the last
+  function removeLastButton(){
+      $("removeGif").on("click", function(){
+      sportsFigure.pop(action);
+      displayGifButtons();
+      return false;
+      });
+  }
+  // Function that displays all of the gifs
+  function displayGifs(){
+      var apiKey = "pNfiBS9U6OAn1zOSJ5A5GJugEgmd8rJk";
+      var action = $(this).attr("data-name");
+      var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + action + "&width='320'$height='200'&limit=10&api_key=pNfiBS9U6OAn1zOSJ5A5GJugEgmd8rJk";
       
+      $.ajax({
+          url: queryURL,
+          method: 'GET'
+      })
+      .done(function(response) {
+          console.log(response); // console test to make sure something returns
+          $("#gifsView").empty(); // erasing anything in this div id so that it doesnt keep any from the previous click
+          var results = response.data; //shows results of gifs
+          if (results == ""){
+            alert("There isn't a gif for th√is selected button");
+          }
+          for (var i=0; i<results.length; i++){
+  
+              var gifDiv = $("<div>"); //div for the gifs to go inside
+              gifDiv.addClass("gifDiv");
+              // pulling rating of gif
+              var gifRating = $("<p>").text("Rating: " + results[i].rating);
+              gifDiv.append(gifRating);
+              // pulling gif
+              var gifImage = $("<img>");
+              gifImage.attr("src", results[i].images.fixed_height_small_still.url); // still image stored into src of image
+              gifImage.attr("data-still",results[i].images.fixed_height_small_still.url); // still image
+              gifImage.attr("data-animate",results[i].images.fixed_height_small.url); // animated image
+              gifImage.attr("data-state", "still"); // set the image state
+              gifImage.addClass("image");
+              gifDiv.append(gifImage);
+              // pulling still image of gif
+              // adding div of gifs to gifsView div
+              $("#gifsView").prepend(gifDiv);
+          }
+      });
+  }
+  // Calling Functions & Methods
+  displayGifButtons(); // displays list of sportsFigure already created
+  addNewButton();
+  removeLastButton();
+  // Document Event Listeners
+  $(document).on("click", ".action", displayGifs);
+  $(document).on("click", ".image", function(){
+      var state = $(this).attr('data-state');
+      if ( state == 'still'){
+          $(this).attr('src', $(this).data('animate'));
+          $(this).attr('data-state', 'animate');
+      }else{
+          $(this).attr('src', $(this).data('still'));
+          $(this).attr('data-state', 'still');
+      }
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  });
