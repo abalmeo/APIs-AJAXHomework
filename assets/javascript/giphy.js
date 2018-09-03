@@ -41,7 +41,7 @@ $( document ).ready(function() {
   function displayGifs(){
       var apiKey = "pNfiBS9U6OAn1zOSJ5A5GJugEgmd8rJk";
       var action = $(this).attr("data-name");
-      var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + action + "&width='320'$height='200'&limit=10&api_key=pNfiBS9U6OAn1zOSJ5A5GJugEgmd8rJk";
+      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + action + "&width='320'$height='200'&limit=10&api_key=pNfiBS9U6OAn1zOSJ5A5GJugEgmd8rJk";
       
       $.ajax({
           url: queryURL,
